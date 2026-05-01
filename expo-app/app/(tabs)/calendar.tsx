@@ -1,61 +1,64 @@
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import LoginRequired from '../../components/LoginRequired';
 
 export default function CalendarScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Takvim & Randevular</Text>
-        <Text style={styles.subtitle}>Sınav takviminizi ve ders randevularınızı buradan takip edebilirsiniz.</Text>
-      </View>
-
-      <Text style={styles.sectionTitle}>Gelecek Randevular</Text>
-      
-      <View style={styles.card}>
-        <View style={styles.dateBadge}>
-          <Text style={styles.dateDay}>12</Text>
-          <Text style={styles.dateMonth}>MAY</Text>
+    <LoginRequired title="Takvime Erişmek İçin Giriş Yapın">
+      <ScrollView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Takvim & Randevular</Text>
+          <Text style={styles.subtitle}>Sınav takviminizi ve ders randevularınızı buradan takip edebilirsiniz.</Text>
         </View>
-        <View style={styles.cardInfo}>
-          <Text style={styles.itemTitle}>Direksiyon Dersi</Text>
-          <Text style={styles.itemTime}>14:00 - 15:30</Text>
-          <Text style={styles.itemInstructor}>Eğitmen: Mehmet Yılmaz</Text>
-        </View>
-      </View>
 
-      <View style={styles.card}>
-        <View style={styles.dateBadge}>
-          <Text style={styles.dateDay}>15</Text>
-          <Text style={styles.dateMonth}>MAY</Text>
+        <Text style={styles.sectionTitle}>Gelecek Randevular</Text>
+        
+        <View style={styles.card}>
+          <View style={styles.dateBadge}>
+            <Text style={styles.dateDay}>12</Text>
+            <Text style={styles.dateMonth}>MAY</Text>
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.itemTitle}>Direksiyon Dersi</Text>
+            <Text style={styles.itemTime}>14:00 - 15:30</Text>
+            <Text style={styles.itemInstructor}>Eğitmen: Mehmet Yılmaz</Text>
+          </View>
         </View>
-        <View style={styles.cardInfo}>
-          <Text style={styles.itemTitle}>Teorik Ders (İlkyardım)</Text>
-          <Text style={styles.itemTime}>18:00 - 20:00</Text>
-          <Text style={styles.itemInstructor}>Eğitmen: Zeynep Hoca</Text>
+
+        <View style={styles.card}>
+          <View style={styles.dateBadge}>
+            <Text style={styles.dateDay}>15</Text>
+            <Text style={styles.dateMonth}>MAY</Text>
+          </View>
+          <View style={styles.cardInfo}>
+            <Text style={styles.itemTitle}>Teorik Ders (İlkyardım)</Text>
+            <Text style={styles.itemTime}>18:00 - 20:00</Text>
+            <Text style={styles.itemInstructor}>Eğitmen: Zeynep Hoca</Text>
+          </View>
         </View>
-      </View>
 
-      <Text style={styles.sectionTitle}>Sınav Takvimi</Text>
+        <Text style={styles.sectionTitle}>Sınav Takvimi</Text>
 
-      <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#ef4444' }]}>
-        <View style={styles.cardInfo}>
-          <Text style={styles.itemTitle}>E-Sınav (Teorik)</Text>
-          <Text style={styles.itemTime}>25 Mayıs 2026, Pazartesi - 10:00</Text>
-          <Text style={styles.itemInstructor}>Milli Eğitim Merkezi</Text>
+        <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#ef4444' }]}>
+          <View style={styles.cardInfo}>
+            <Text style={styles.itemTitle}>E-Sınav (Teorik)</Text>
+            <Text style={styles.itemTime}>25 Mayıs 2026, Pazartesi - 10:00</Text>
+            <Text style={styles.itemInstructor}>Milli Eğitim Merkezi</Text>
+          </View>
         </View>
-      </View>
 
-      <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#10b981' }]}>
-        <View style={styles.cardInfo}>
-          <Text style={styles.itemTitle}>Direksiyon Sınavı</Text>
-          <Text style={styles.itemTime}>02 Haziran 2026, Pazar - 09:30</Text>
-          <Text style={styles.itemInstructor}>Sınav Başlangıç Alanı</Text>
+        <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#10b981' }]}>
+          <View style={styles.cardInfo}>
+            <Text style={styles.itemTitle}>Direksiyon Sınavı</Text>
+            <Text style={styles.itemTime}>02 Haziran 2026, Pazar - 09:30</Text>
+            <Text style={styles.itemInstructor}>Sınav Başlangıç Alanı</Text>
+          </View>
         </View>
-      </View>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Yeni Randevu Talebi</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Yeni Randevu Talebi</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </LoginRequired>
   );
 }
 
