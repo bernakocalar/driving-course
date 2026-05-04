@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import LoginRequired from '../../components/LoginRequired';
 
 export default function ProfileScreen() {

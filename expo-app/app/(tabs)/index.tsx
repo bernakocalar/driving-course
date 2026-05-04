@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {

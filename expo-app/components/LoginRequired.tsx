@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 
-export default function LoginRequired({ children, title = 'Giriş Yapmanız Gerekiyor' }: { children: React.ReactNode, title?: string }) {
+export default function LoginRequired({ children, title = 'Giriş Yapmanız Gerekiyor' }: { children?: React.ReactNode, title?: string }) {
   const { isAuthenticated, login } = useAuth();
   const [tc, setTc] = useState('');
 
