@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { LayoutDashboard, Calendar, Clock, BookOpen, Settings, Car } from 'lucide-react';
+import { LayoutDashboard, Calendar, Clock, BookOpen, Settings, Car, Menu, X } from 'lucide-react';
 import './index.css';
 
 const Dashboard = () => (
@@ -130,43 +131,58 @@ const ESinav = () => (
   </div>
 );
 
-const Sidebar = () => (
-  <div className="sidebar">
-    <div className="sidebar-header">
-      <Car size={28} />
-      <span>Sürücü Kursu</span>
+const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean, toggleSidebar: () => void }) => (
+  <>
+    <div className={`sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={toggleSidebar}></div>
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-header">
+        <Car size={28} />
+        <span>Sürücü Kursu</span>
+        <button className="mobile-close-btn" onClick={toggleSidebar}>
+          <X size={24} />
+        </button>
+      </div>
+      <div className="sidebar-nav">
+        <NavLink to="/" onClick={toggleSidebar} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <LayoutDashboard size={20} />
+          Dashboard
+        </NavLink>
+        <NavLink to="/sinav-takvimi" onClick={toggleSidebar} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Calendar size={20} />
+          Sınav Takvimi
+        </NavLink>
+        <NavLink to="/randevular" onClick={toggleSidebar} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Clock size={20} />
+          Ders ve Randevular
+        </NavLink>
+        <NavLink to="/e-sinav" onClick={toggleSidebar} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <BookOpen size={20} />
+          E-Sınav Modülü
+        </NavLink>
+        <NavLink to="/icerik" onClick={toggleSidebar} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+          <Settings size={20} />
+          Hakkımızda & Blog
+        </NavLink>
+      </div>
     </div>
-    <div className="sidebar-nav">
-      <NavLink to="/" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-        <LayoutDashboard size={20} />
-        Dashboard
-      </NavLink>
-      <NavLink to="/sinav-takvimi" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-        <Calendar size={20} />
-        Sınav Takvimi
-      </NavLink>
-      <NavLink to="/randevular" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-        <Clock size={20} />
-        Ders ve Randevular
-      </NavLink>
-      <NavLink to="/e-sinav" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-        <BookOpen size={20} />
-        E-Sınav Modülü
-      </NavLink>
-      <NavLink to="/icerik" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-        <Settings size={20} />
-        Hakkımızda & Blog
-      </NavLink>
-    </div>
-  </div>
+  </>
 );
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   return (
     <Router>
       <div className="app-container">
-        <Sidebar />
+        <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="main-content">
+          <div className="mobile-header">
+            <button className="mobile-menu-btn" onClick={toggleSidebar}>
+              <Menu size={24} />
+            </button>
+            <span className="mobile-header-title">Sürücü Kursu Yönetim</span>
+          </div>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/sinav-takvimi" element={<SinavTakvimi />} />

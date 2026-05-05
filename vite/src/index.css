@@ -175,3 +175,80 @@ tr:hover td {
   font-size: 2rem;
   font-weight: 700;
 }
+
+/* Mobile Responsive Additions */
+.mobile-header {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mobile-menu-btn, .mobile-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-close-btn {
+  display: none;
+  margin-left: auto;
+}
+
+.mobile-header-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 40;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .mobile-header {
+    display: flex;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    z-index: 50;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+  }
+
+  .mobile-close-btn {
+    display: block;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+}

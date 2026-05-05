@@ -9,15 +9,15 @@ export default function ContactScreen() {
 
   return (
     <View style={styles.container}>
-      <Header 
-        variant="green" 
-        leftType="back" 
-        rightType="none" 
+      <Header
+        variant="green"
+        leftType="back"
+        rightType="none"
         onLeftPress={() => router.push('/')}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
-        
+
         <View style={styles.row}>
           <View style={styles.card}>
             <View style={styles.iconCircle}>
@@ -44,7 +44,7 @@ export default function ContactScreen() {
           </View>
           <View style={styles.emailTextContainer}>
             <Text style={styles.emailTitle}>E-posta</Text>
-            <Text style={styles.emailAddress}>info@guvensurucukursu.com.tr</Text>
+            <Text style={styles.emailAddress}>info@surucukursu.com.tr</Text>
           </View>
         </View>
 
@@ -56,16 +56,16 @@ export default function ContactScreen() {
 
         <View style={styles.socialRow}>
           <View style={[styles.socialIcon, { backgroundColor: '#C13584' }]}>
-             <MaterialCommunityIcons name="instagram" size={40} color="#fff" />
+            <MaterialCommunityIcons name="instagram" size={40} color="#fff" />
           </View>
           <View style={[styles.socialIcon, { backgroundColor: '#000' }]}>
-             <FontAwesome5 name="twitter" size={32} color="#fff" />
+            <FontAwesome5 name="twitter" size={32} color="#fff" />
           </View>
           <View style={[styles.socialIcon, { backgroundColor: '#FF0000', borderRadius: 15 }]}>
-             <MaterialCommunityIcons name="youtube" size={40} color="#fff" />
+            <MaterialCommunityIcons name="youtube" size={40} color="#fff" />
           </View>
           <View style={[styles.socialIcon, { backgroundColor: '#3b5998', borderRadius: 8 }]}>
-             <FontAwesome5 name="facebook-f" size={36} color="#fff" />
+            <FontAwesome5 name="facebook-f" size={36} color="#fff" />
           </View>
         </View>
 
@@ -89,7 +89,7 @@ export default function ContactScreen() {
             <Text style={styles.branchTabText}>Adalet</Text>
           </View>
         </ScrollView>
-        
+
       </ScrollView>
     </View>
   );

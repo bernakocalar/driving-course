@@ -8,21 +8,10 @@ interface LogoProps {
 export default function Logo({ color = 'black' }: LogoProps) {
   const isWhite = color === 'white';
   const textColor = isWhite ? '#fff' : '#000';
-  
+
   return (
     <View style={styles.container}>
-      <View style={styles.topRow}>
-        <Text style={[styles.mainText, { color: textColor }]}>g</Text>
-        <View style={styles.uContainer}>
-          <Text style={[styles.mainText, { color: textColor }]}>u</Text>
-          <View style={styles.trafficLights}>
-            <View style={[styles.light, { backgroundColor: '#F44336' }]} />
-            <View style={[styles.light, { backgroundColor: '#FFC107' }]} />
-            <View style={[styles.light, { backgroundColor: '#4CAF50' }]} />
-          </View>
-        </View>
-        <Text style={[styles.mainText, { color: textColor }]}>ven</Text>
-      </View>
+
       <Text style={[styles.subText, { color: textColor }]}>S Ü R Ü C Ü   K U R S U</Text>
     </View>
   );

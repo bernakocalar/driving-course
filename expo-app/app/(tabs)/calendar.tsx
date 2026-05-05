@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Header from '@/components/Header';
 import Logo from '@/components/Logo';
 import { useRouter } from 'expo-router';
@@ -7,6 +7,14 @@ import { useRouter } from 'expo-router';
 export default function CalendarScreen() {
   const router = useRouter();
   const [tc, setTc] = useState('');
+
+  const handleLogin = () => {
+    if (tc.length !== 11 || !/^\d+$/.test(tc)) {
+      Alert.alert('Hata', 'Lütfen 11 haneli geçerli bir T.C. Kimlik Numarası giriniz.');
+      return;
+    }
+    router.push('/randevu');
+  };
 
   return (
     <View style={styles.container}>
@@ -49,7 +57,7 @@ export default function CalendarScreen() {
               />
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
               <Text style={styles.buttonText}>Giriş Yap</Text>
             </TouchableOpacity>
           </View>

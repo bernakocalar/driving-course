@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Header from '@/components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -7,6 +7,14 @@ import { useRouter } from 'expo-router';
 export default function ExamsScreen() {
   const router = useRouter();
   const [tc, setTc] = useState('');
+
+  const handleSearch = () => {
+    if (tc.length !== 11 || !/^\d+$/.test(tc)) {
+      Alert.alert('Hata', 'Lütfen 11 haneli geçerli bir T.C. Kimlik Numarası giriniz.');
+      return;
+    }
+    Alert.alert('Başarılı', 'Sonuç sorgulanıyor...');
+  };
 
   return (
     <View style={styles.container}>
@@ -50,7 +58,7 @@ export default function ExamsScreen() {
           />
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleSearch}>
           <Text style={styles.buttonText}>Sorgula</Text>
         </TouchableOpacity>
       </View>
