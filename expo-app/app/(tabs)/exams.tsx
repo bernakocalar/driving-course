@@ -1,86 +1,142 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import LoginRequired from '../../components/LoginRequired';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import Header from '@/components/Header';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function ExamsScreen() {
+  const router = useRouter();
+  const [tc, setTc] = useState('');
+
   return (
-    <LoginRequired title="Deneme Sınavlarına Erişmek İçin Giriş Yapın">
-      <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Deneme Sınavları</Text>
-          <Text style={styles.subtitle}>Gerçek sınav öncesi kendinizi test edin.</Text>
-        </View>
+    <View style={styles.container}>
+      <Header 
+        variant="green" 
+        title="Sınav Sonucu Sorgula" 
+        leftType="none" 
+        rightType="close" 
+        onRightPress={() => router.push('/')}
+      />
 
-        <Text style={styles.sectionTitle}>Aktif Denemeler</Text>
-        
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>Trafik ve Çevre Bilgisi</Text>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>Zor</Text>
-            </View>
+      <View style={styles.content}>
+        <View style={styles.headerRow}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons name="traffic-cone" size={32} color="#F2A900" />
+            <MaterialCommunityIcons name="arrow-up-right" size={24} color="#41B036" style={styles.arrowIcon} />
+            <MaterialCommunityIcons name="traffic-cone" size={20} color="#888" style={styles.smallCone} />
           </View>
-          <Text style={styles.cardDesc}>50 Soru • 45 Dakika</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sınava Başla</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>Motor ve Araç Tekniği</Text>
-            <View style={[styles.badge, { backgroundColor: '#dcfce7' }]}>
-              <Text style={[styles.badgeText, { color: '#166534' }]}>Orta</Text>
-            </View>
-          </View>
-          <Text style={styles.cardDesc}>50 Soru • 45 Dakika</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sınava Başla</Text>
-          </TouchableOpacity>
-        </View>
-
-        <Text style={styles.sectionTitle}>Geçmiş Sonuçlarınız</Text>
-
-        <View style={styles.resultCard}>
-          <View>
-            <Text style={styles.resultTitle}>Genel Deneme #1</Text>
-            <Text style={styles.resultDate}>10 Mayıs 2026</Text>
-          </View>
-          <View style={styles.scoreCircle}>
-            <Text style={styles.scoreText}>82</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+              <Text style={styles.titleGreen}>Direksiyon </Text>
+              sınav{'\n'}sonucunuz
+            </Text>
           </View>
         </View>
 
-        <View style={styles.resultCard}>
-          <View>
-            <Text style={styles.resultTitle}>Trafik Kuralları #1</Text>
-            <Text style={styles.resultDate}>5 Mayıs 2026</Text>
-          </View>
-          <View style={[styles.scoreCircle, { borderColor: '#ef4444' }]}>
-            <Text style={[styles.scoreText, { color: '#ef4444' }]}>64</Text>
-          </View>
+        <Text style={styles.description}>
+          T.C. kimlik numaranız ile direksiyon sınav sonucunuzu öğrenin.
+        </Text>
+
+        <View style={styles.inputContainer}>
+          <MaterialCommunityIcons name="account-circle" size={24} color="#888" style={styles.inputIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="T.C. kimlik numaranız"
+            placeholderTextColor="#888"
+            keyboardType="number-pad"
+            maxLength={11}
+            value={tc}
+            onChangeText={setTc}
+          />
         </View>
-      </ScrollView>
-    </LoginRequired>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Sorgula</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f1f5f9' },
-  header: { padding: 24, backgroundColor: 'white', marginBottom: 16 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#1e293b' },
-  subtitle: { fontSize: 14, color: '#64748b', marginTop: 8 },
-  sectionTitle: { fontSize: 18, fontWeight: '600', color: '#334155', marginHorizontal: 16, marginTop: 8, marginBottom: 12 },
-  card: { backgroundColor: 'white', marginHorizontal: 16, marginBottom: 16, borderRadius: 16, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 3 },
-  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
-  cardTitle: { fontSize: 18, fontWeight: 'bold', color: '#1e293b' },
-  badge: { backgroundColor: '#fee2e2', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 12 },
-  badgeText: { color: '#991b1b', fontSize: 12, fontWeight: 'bold' },
-  cardDesc: { fontSize: 14, color: '#64748b', marginBottom: 16 },
-  button: { backgroundColor: '#2563eb', padding: 14, borderRadius: 12, alignItems: 'center' },
-  buttonText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
-  resultCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', marginHorizontal: 16, marginBottom: 12, borderRadius: 12, padding: 16, borderLeftWidth: 4, borderLeftColor: '#2563eb' },
-  resultTitle: { fontSize: 16, fontWeight: '600', color: '#1e293b', marginBottom: 4 },
-  resultDate: { fontSize: 13, color: '#94a3b8' },
-  scoreCircle: { width: 50, height: 50, borderRadius: 25, borderWidth: 3, borderColor: '#10b981', alignItems: 'center', justifyContent: 'center' },
-  scoreText: { fontSize: 18, fontWeight: 'bold', color: '#10b981' }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  content: {
+    padding: 24,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 24,
+    marginTop: 10,
+  },
+  iconContainer: {
+    width: 60,
+    height: 60,
+    position: 'relative',
+    marginRight: 16,
+  },
+  arrowIcon: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+  },
+  smallCone: {
+    position: 'absolute',
+    bottom: 5,
+    right: 0,
+  },
+  titleContainer: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#000',
+    lineHeight: 32,
+  },
+  titleGreen: {
+    color: '#41B036',
+  },
+  description: {
+    fontSize: 16,
+    color: '#333',
+    lineHeight: 24,
+    marginBottom: 32,
+    fontWeight: '500',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E0E4E8',
+    borderRadius: 8,
+    height: 54,
+    paddingHorizontal: 16,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
+  inputIcon: {
+    marginRight: 12,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  button: {
+    backgroundColor: '#41B036',
+    borderRadius: 8,
+    height: 54,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+  },
 });

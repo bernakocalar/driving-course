@@ -1,81 +1,130 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import LoginRequired from '../../components/LoginRequired';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import Header from '@/components/Header';
+import Logo from '@/components/Logo';
+import { useRouter } from 'expo-router';
 
 export default function CalendarScreen() {
+  const router = useRouter();
+  const [tc, setTc] = useState('');
+
   return (
-    <LoginRequired title="Takvime Erişmek İçin Giriş Yapın">
-      <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Takvim & Randevular</Text>
-          <Text style={styles.subtitle}>Sınav takviminizi ve ders randevularınızı buradan takip edebilirsiniz.</Text>
-        </View>
+    <View style={styles.container}>
+      <Header 
+        variant="green" 
+        title="Randevu Sistemi" 
+        leftType="none" 
+        rightType="close" 
+        onRightPress={() => router.push('/')}
+      />
 
-        <Text style={styles.sectionTitle}>Gelecek Randevular</Text>
-        
+      <View style={styles.content}>
         <View style={styles.card}>
-          <View style={styles.dateBadge}>
-            <Text style={styles.dateDay}>12</Text>
-            <Text style={styles.dateMonth}>MAY</Text>
+          <View style={styles.logoContainer}>
+            <Logo />
+            <Text style={styles.cardTitle}>Randevu Sistemi</Text>
           </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.itemTitle}>Direksiyon Dersi</Text>
-            <Text style={styles.itemTime}>14:00 - 15:30</Text>
-            <Text style={styles.itemInstructor}>Eğitmen: Mehmet Yılmaz</Text>
+          
+          <View style={styles.colorBar}>
+            <View style={[styles.colorSegment, { backgroundColor: '#C5DFA0' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#FDF1C2' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#F9D18D' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#F39C81' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#E4A2AC' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#D2AFE1' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#A4BCE1' }]} />
+            <View style={[styles.colorSegment, { backgroundColor: '#7AC9E3' }]} />
+          </View>
+
+          <View style={styles.cardBody}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="TC Kimlik Numarası"
+                placeholderTextColor="#666"
+                keyboardType="number-pad"
+                maxLength={11}
+                value={tc}
+                onChangeText={setTc}
+              />
+            </View>
+
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Giriş Yap</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <View style={styles.card}>
-          <View style={styles.dateBadge}>
-            <Text style={styles.dateDay}>15</Text>
-            <Text style={styles.dateMonth}>MAY</Text>
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.itemTitle}>Teorik Ders (İlkyardım)</Text>
-            <Text style={styles.itemTime}>18:00 - 20:00</Text>
-            <Text style={styles.itemInstructor}>Eğitmen: Zeynep Hoca</Text>
-          </View>
-        </View>
-
-        <Text style={styles.sectionTitle}>Sınav Takvimi</Text>
-
-        <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#ef4444' }]}>
-          <View style={styles.cardInfo}>
-            <Text style={styles.itemTitle}>E-Sınav (Teorik)</Text>
-            <Text style={styles.itemTime}>25 Mayıs 2026, Pazartesi - 10:00</Text>
-            <Text style={styles.itemInstructor}>Milli Eğitim Merkezi</Text>
-          </View>
-        </View>
-
-        <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: '#10b981' }]}>
-          <View style={styles.cardInfo}>
-            <Text style={styles.itemTitle}>Direksiyon Sınavı</Text>
-            <Text style={styles.itemTime}>02 Haziran 2026, Pazar - 09:30</Text>
-            <Text style={styles.itemInstructor}>Sınav Başlangıç Alanı</Text>
-          </View>
-        </View>
-
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Yeni Randevu Talebi</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </LoginRequired>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f1f5f9' },
-  header: { padding: 24, backgroundColor: 'white', marginBottom: 16 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#1e293b' },
-  subtitle: { fontSize: 14, color: '#64748b', marginTop: 8 },
-  sectionTitle: { fontSize: 18, fontWeight: '600', color: '#334155', marginHorizontal: 16, marginTop: 16, marginBottom: 8 },
-  card: { flexDirection: 'row', backgroundColor: 'white', marginHorizontal: 16, marginBottom: 12, borderRadius: 12, padding: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 2 },
-  dateBadge: { backgroundColor: '#f1f5f9', width: 60, height: 60, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginRight: 16 },
-  dateDay: { fontSize: 20, fontWeight: 'bold', color: '#2563eb' },
-  dateMonth: { fontSize: 12, fontWeight: '600', color: '#64748b' },
-  cardInfo: { flex: 1, justifyContent: 'center' },
-  itemTitle: { fontSize: 16, fontWeight: '600', color: '#1e293b', marginBottom: 4 },
-  itemTime: { fontSize: 14, color: '#475569', marginBottom: 4 },
-  itemInstructor: { fontSize: 13, color: '#94a3b8' },
-  button: { backgroundColor: '#2563eb', margin: 24, padding: 16, borderRadius: 12, alignItems: 'center' },
-  buttonText: { color: 'white', fontSize: 16, fontWeight: 'bold' }
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F6F8',
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+    marginTop: 20,
+  },
+  card: {
+    backgroundColor: '#F5F7F8', // Slightly different from background or just white
+    borderRadius: 10,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    paddingVertical: 30,
+    backgroundColor: '#F2F4F5',
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#34495e',
+    marginTop: 20,
+  },
+  colorBar: {
+    flexDirection: 'row',
+    height: 6,
+  },
+  colorSegment: {
+    flex: 1,
+  },
+  cardBody: {
+    padding: 24,
+    backgroundColor: '#fff',
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: '#E0E4E8',
+    borderRadius: 6,
+    height: 54,
+    paddingHorizontal: 16,
+    marginBottom: 20,
+    justifyContent: 'center',
+  },
+  input: {
+    fontSize: 18,
+    color: '#333',
+    fontWeight: '500',
+  },
+  button: {
+    backgroundColor: '#3EA832',
+    borderRadius: 6,
+    height: 54,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
