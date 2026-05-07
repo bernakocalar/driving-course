@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Header from '@/components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -47,7 +47,7 @@ export default function RandevuListScreen() {
                 <Text style={styles.dateText}>{app.date}</Text>
               </View>
               <View style={[styles.statusBadge, app.status === 'Onaylandı' ? styles.statusSuccess : styles.statusPending]}>
-                <Text style={styles.statusText}>{app.status}</Text>
+                <Text style={[styles.statusText, app.status === 'Onaylandı' ? styles.statusTextSuccess : styles.statusTextPending]}>{app.status}</Text>
               </View>
             </View>
 
@@ -69,7 +69,13 @@ export default function RandevuListScreen() {
             </View>
 
             <View style={styles.actionRow}>
-              <TouchableOpacity style={styles.cancelButton}>
+              <TouchableOpacity 
+                style={styles.cancelButton}
+                onPress={() => Alert.alert('Emin misiniz?', 'Randevuyu iptal etmek istediğinize emin misiniz?', [
+                  { text: 'Hayır', style: 'cancel' },
+                  { text: 'Evet', style: 'destructive', onPress: () => Alert.alert('Başarılı', 'Randevunuz iptal edildi.') }
+                ])}
+              >
                 <Text style={styles.cancelButtonText}>İptal Et</Text>
               </TouchableOpacity>
             </View>
@@ -135,7 +141,12 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#41B036', // Or orange for pending, but green fits success
+  },
+  statusTextSuccess: {
+    color: '#41B036',
+  },
+  statusTextPending: {
+    color: '#FF9800',
   },
   divider: {
     height: 1,

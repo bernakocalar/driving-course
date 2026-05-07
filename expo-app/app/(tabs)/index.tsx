@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import Header from '@/components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -56,7 +56,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.fullCard}>
+        <TouchableOpacity style={styles.fullCard} onPress={() => Alert.alert('Bilgi', 'E-Kitap özelliği yakında eklenecektir.')}>
           <View>
             <Text style={styles.cardTitle}>E-Kitap</Text>
             <Text style={styles.cardSubtitle}>Online Sürücü Kitabı</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Alert } from 'react-native';
 import Header from '@/components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -46,7 +46,7 @@ export default function OnlineTestScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Bilgi', 'Test modülü yakında eklenecektir.')}>
           <Text style={styles.buttonText}>Devam Et</Text>
         </TouchableOpacity>
       </View>

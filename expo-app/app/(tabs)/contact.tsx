@@ -44,7 +44,7 @@ export default function ContactScreen() {
           </View>
           <View style={styles.emailTextContainer}>
             <Text style={styles.emailTitle}>E-posta</Text>
-            <Text style={styles.emailAddress}>info@surucukursu.com.tr</Text>
+            <Text style={styles.emailAddress}>info@ozcinarsurucukursu.com.tr</Text>
           </View>
         </View>
 

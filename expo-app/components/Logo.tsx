@@ -11,7 +11,9 @@ export default function Logo({ color = 'black' }: LogoProps) {
 
   return (
     <View style={styles.container}>
-
+      <View style={styles.topRow}>
+        <Text style={[styles.mainText, { color: textColor }]}>ÖZ ÇINAR</Text>
+      </View>
       <Text style={[styles.subText, { color: textColor }]}>S Ü R Ü C Ü   K U R S U</Text>
     </View>
   );

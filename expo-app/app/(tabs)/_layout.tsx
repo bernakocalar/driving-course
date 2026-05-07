@@ -43,7 +43,7 @@ export default function TabLayout() {
           title: '',
           tabBarIcon: ({ focused }) => (
             <View style={[styles.centerButton, focused && styles.centerButtonActive]}>
-              <Text style={styles.centerButtonText}>g</Text>
+              <Text style={styles.centerButtonText}>Ö</Text>
               <View style={styles.smile} />
             </View>
           ),
