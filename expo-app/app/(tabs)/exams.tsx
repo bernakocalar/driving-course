@@ -1,19 +1,50 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import Header from '@/components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
+interface ExamResult {
+  examName: string;
+  date: string;
+  score: number;
+  status: 'Geçti' | 'Kaldı';
+}
+
 export default function ExamsScreen() {
   const router = useRouter();
   const [tc, setTc] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<ExamResult | null>(null);
 
   const handleSearch = () => {
     if (tc.length !== 11 || !/^\d+$/.test(tc)) {
       Alert.alert('Hata', 'Lütfen 11 haneli geçerli bir T.C. Kimlik Numarası giriniz.');
       return;
     }
-    Alert.alert('Başarılı', 'Sonuç sorgulanıyor...');
+    setLoading(true);
+    setResult(null);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      // Fake Data Logic
+      if (tc === '11111111111') {
+        setResult({
+          examName: 'Direksiyon Sınavı',
+          date: '12 Mayıs 2026',
+          score: 45,
+          status: 'Kaldı',
+        });
+      } else {
+        setResult({
+          examName: 'Direksiyon Sınavı',
+          date: '12 Mayıs 2026',
+          score: 85,
+          status: 'Geçti',
+        });
+      }
+    }, 1500);
   };
 
   return (
@@ -54,13 +85,50 @@ export default function ExamsScreen() {
             keyboardType="number-pad"
             maxLength={11}
             value={tc}
-            onChangeText={setTc}
+            onChangeText={(text) => {
+              setTc(text);
+              if (result) setResult(null);
+            }}
           />
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleSearch}>
-          <Text style={styles.buttonText}>Sorgula</Text>
+        <TouchableOpacity 
+          style={[styles.button, loading && styles.buttonDisabled]} 
+          onPress={handleSearch}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Sorgula</Text>
+          )}
         </TouchableOpacity>
+
+        {result && (
+          <View style={styles.resultCard}>
+            <Text style={styles.resultTitle}>Sınav Sonucu</Text>
+            <View style={styles.resultRow}>
+              <Text style={styles.resultLabel}>Sınav Türü:</Text>
+              <Text style={styles.resultValue}>{result.examName}</Text>
+            </View>
+            <View style={styles.resultRow}>
+              <Text style={styles.resultLabel}>Sınav Tarihi:</Text>
+              <Text style={styles.resultValue}>{result.date}</Text>
+            </View>
+            <View style={styles.resultRow}>
+              <Text style={styles.resultLabel}>Puan:</Text>
+              <Text style={styles.resultValue}>{result.score}</Text>
+            </View>
+            <View style={styles.resultRow}>
+              <Text style={styles.resultLabel}>Durum:</Text>
+              <View style={[styles.statusBadge, result.status === 'Geçti' ? styles.statusSuccess : styles.statusFailed]}>
+                <Text style={[styles.statusText, result.status === 'Geçti' ? styles.statusTextSuccess : styles.statusTextFailed]}>
+                  {result.status}
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -142,9 +210,66 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonDisabled: {
+    backgroundColor: '#95D58D',
+  },
   buttonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
+  },
+  resultCard: {
+    marginTop: 32,
+    padding: 20,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  resultTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#111827',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+    paddingBottom: 8,
+  },
+  resultRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  resultLabel: {
+    fontSize: 15,
+    color: '#4B5563',
+    fontWeight: '500',
+  },
+  resultValue: {
+    fontSize: 15,
+    color: '#111827',
+    fontWeight: '700',
+  },
+  statusBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  statusSuccess: {
+    backgroundColor: '#DCFCE7',
+  },
+  statusFailed: {
+    backgroundColor: '#FEE2E2',
+  },
+  statusText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  statusTextSuccess: {
+    color: '#166534',
+  },
+  statusTextFailed: {
+    color: '#991B1B',
   },
 });

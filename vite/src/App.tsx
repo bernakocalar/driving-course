@@ -137,7 +137,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: { isOpen: boolean, toggleSidebar: ()
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <Car size={28} />
-        <span>Sürücü Kursu</span>
+        <span>Öz Çınar Sürücü Kursu</span>
         <button className="mobile-close-btn" onClick={toggleSidebar}>
           <X size={24} />
         </button>
@@ -181,7 +181,7 @@ function App() {
             <button className="mobile-menu-btn" onClick={toggleSidebar}>
               <Menu size={24} />
             </button>
-            <span className="mobile-header-title">Sürücü Kursu Yönetim</span>
+            <span className="mobile-header-title">Öz Çınar Yönetim</span>
           </div>
           <Routes>
             <Route path="/" element={<Dashboard />} />
